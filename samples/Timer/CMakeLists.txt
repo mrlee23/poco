@@ -1,3 +1,5 @@
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -pthread")
+
 set(SAMPLE_NAME "Timer")
 
 set(LOCAL_SRCS "")
