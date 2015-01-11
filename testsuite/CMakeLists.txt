@@ -1,7 +1,11 @@
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY "${CMAKE_BINARY_DIR}/bin")
+
+include_directories(CppUnit/include)
+
 set(TESTUNIT "${LIBNAME}-testrunner")
 
 # Sources
-file(GLOB SRCS_G "src/*.cpp")
+file(GLOB SRCS_G "src/*.cpp" "CppUnit/src/*.cpp")
 file(GLOB SRCS_G_REMOVE 
     src/TestApp.cpp
     src/TestApp_WINCE.cpp
@@ -28,7 +32,7 @@ add_executable( ${TESTUNIT} ${TEST_SRCS} )
 add_test(NAME ${LIBNAME} WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY} COMMAND ${TESTUNIT} -all)
 set_tests_properties(${LIBNAME} PROPERTIES ENVIRONMENT "LD_LIBRARY_PATH=.") # The SharedLibaryTest has to look for shared libraries in the working directory
 
-target_link_libraries( ${TESTUNIT} PocoFoundation CppUnit )
+target_link_libraries( ${TESTUNIT} PocoFoundation dl rt )
 if(UNIX)
     target_link_libraries( ${TESTUNIT} pthread)
 endif(UNIX)
